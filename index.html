@@ -75,12 +75,12 @@
       </div>
       <div class="field">
         <label class="req">指示者</label>
-        <select id="p_mgr" class="auto"></select>
+        <select id="p_mgr" class="auto" onchange="lsSet('ot_mgr',this.value)"></select>
         <span class="hint">部門を選ぶと自動で入ります（必要なら変更可）</span>
       </div>
       <div class="field">
         <label class="req">対応者（残業する人）</label>
-        <select id="p_name"></select>
+        <select id="p_name" onchange="lsSet('ot_name',this.value)"></select>
       </div>
       <div class="row">
         <div class="field">
@@ -100,7 +100,7 @@
         </div>
         <div class="field">
           <label class="req">予定終了</label>
-          <input type="time" id="p_et" value="20:00">
+          <input type="time" id="p_et" value="18:30">
         </div>
       </div>
       <div class="field">
@@ -121,7 +121,7 @@
       </div>
       <div class="field">
         <label class="req">対応者（あなた）</label>
-        <select id="a_name"></select>
+        <select id="a_name" onchange="lsSet('ot_name',this.value)"></select>
       </div>
       <div class="field">
         <label class="req">日付</label>
@@ -160,6 +160,18 @@ function showTab(t){
   document.getElementById('tabAct').classList.toggle('active',t==='act');
   document.getElementById('panePlan').classList.toggle('active',t==='plan');
   document.getElementById('paneAct').classList.toggle('active',t==='act');
+  if(t==='act') syncActFromLast();
+  if(t==='plan') syncPlanFromLast();
+}
+function syncActFromLast(){
+  if(!R) return;
+  var d=lsGet('ot_dept')||'';
+  if(d && (R.depts||[]).indexOf(d)>=0){ document.getElementById('a_dept').value=d; onDeptAct(); }
+}
+function syncPlanFromLast(){
+  if(!R) return;
+  var d=lsGet('ot_dept')||'';
+  if(d && (R.depts||[]).indexOf(d)>=0){ document.getElementById('p_dept').value=d; onDeptPlan(); }
 }
 
 function onDeptPlan(){
