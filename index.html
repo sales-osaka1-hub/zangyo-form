@@ -96,11 +96,11 @@
       <div class="row" style="margin-top:14px;">
         <div class="field">
           <label class="req">予定開始</label>
-          <input type="time" id="p_st" value="18:00">
+          <select id="p_st"></select>
         </div>
         <div class="field">
           <label class="req">予定終了</label>
-          <input type="time" id="p_et" value="18:30">
+          <select id="p_et"></select>
         </div>
       </div>
       <div class="field">
@@ -259,5 +259,6 @@ fetch(API,{method:'GET'})
   .then(init)
   .catch(function(){document.getElementById('loading').innerHTML='名簿の読み込みに失敗しました。<span class="reload" onclick="location.reload()">再読み込み</span>';});
 </script>
+<script>(function(){function f(){var ids=["p_st","p_et"];for(var s=0;s<ids.length;s++){var sel=document.getElementById(ids[s]);if(!sel||sel.tagName!=="SELECT"||sel.options.length)continue;if(ids[s]==="p_et"){var e0=document.createElement("option");e0.value="";e0.text="選択してください";sel.appendChild(e0);}for(var h=0;h<24;h++){for(var m=0;m<60;m+=15){var t=(h<10?"0":"")+h+":"+(m<10?"0":"")+m;var o=document.createElement("option");o.value=t;o.text=t;sel.appendChild(o);}}}var p=document.getElementById("p_st");if(p&&p.tagName==="SELECT")p.value="18:00";}if(document.readyState!=="loading"){f();}else{document.addEventListener("DOMContentLoaded",f);}})();</script>
 </body>
 </html>
